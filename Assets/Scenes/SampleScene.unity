@@ -157,7 +157,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6948202, g: 0.69610083, b: 0.6981132, a: 0}
+  m_BackGroundColor: {r: 0.41531503, g: 0.7924528, b: 0.20558919, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -174,7 +174,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 3, z: -10}
+  m_LocalPosition: {x: 3, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -233,10 +233,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591959b26de58174ca2275273593c8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 4
-  height: 7
+  width: 7
+  height: 10
+  offset: 20
   tilePrefab: {fileID: 7516316478395326464, guid: dc40cd06e12826e4e8bad4ad446707e5,
     type: 3}
+  dots:
+  - {fileID: 670214674110093737, guid: ff62da0aa5bb1aa4a8fc8bbed46ee864, type: 3}
+  - {fileID: 2824226696133820001, guid: 519d6660245936a4abb9818635ce2802, type: 3}
+  - {fileID: 4241251712457251390, guid: 4ae0c790f2174ec4398ff397046e16ba, type: 3}
+  - {fileID: 3691738391245756949, guid: d9386782ff93acf4aa400afa52527764, type: 3}
+  - {fileID: 6475574443979278013, guid: 26a00e0e7ece37b43a6aedb52745cee9, type: 3}
+  - {fileID: 2066056533679741749, guid: 4fde419a70c71c5429738ff2810359a0, type: 3}
+  - {fileID: 8442911137992052282, guid: ba831c9c7807d57419ba93dda233b18b, type: 3}
+  - {fileID: 8807725743727923627, guid: b10cb002f3008e74885d0531d2c4c9d9, type: 3}
 --- !u!4 &1068790191
 Transform:
   m_ObjectHideFlags: 0

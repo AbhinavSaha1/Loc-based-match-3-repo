@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2824226696133820000}
   - component: {fileID: 5358023356107507231}
   - component: {fileID: 7378917659131924262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Candle
   m_TagString: Candle
   m_Icon: {fileID: 0}
@@ -113,7 +113,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 0
+  previousColumn: 0
+  previousRow: 0
   targetX: 0
   targetY: 0
   isMatched: 0
+  otherDot: {fileID: 0}
   swipeAngle: 0
+  swapResist: 1
+  isColorBomb: 0
+  isColumnBomb: 0
+  isRowBomb: 0
+  rowArrow: {fileID: 6343062051183370273, guid: 13b5c37e84c39314a8f835fd2cef30a3,
+    type: 3}
+  columnArrow: {fileID: 3694945470440155480, guid: fc38ce381f676124ca3636f92712b309,
+    type: 3}
+  colorBomb: {fileID: 3929405910940470950, guid: 32369a077bd387e40aa9d8197dd1561f,
+    type: 3}

@@ -121,6 +121,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &92541423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92541425}
+  - component: {fileID: 92541424}
+  m_Layer: 0
+  m_Name: Match Finder
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &92541424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92541423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934dcbf1e0613cb4d9dd2495fb5a1a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMatches: []
+--- !u!4 &92541425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92541423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.15, y: 3.941624, z: -3.2483697}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,11 +277,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591959b26de58174ca2275273593c8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 1
   width: 7
   height: 10
   offset: 20
   tilePrefab: {fileID: 7516316478395326464, guid: dc40cd06e12826e4e8bad4ad446707e5,
     type: 3}
+  boardLayout:
+  - x: 0
+    y: 0
+    tileKind: 1
+  - x: 6
+    y: 9
+    tileKind: 1
+  - x: 6
+    y: 0
+    tileKind: 1
+  - x: 0
+    y: 9
+    tileKind: 1
+  - x: 4
+    y: 4
+    tileKind: 1
+  - x: 3
+    y: 4
+    tileKind: 1
+  - x: 5
+    y: 4
+    tileKind: 1
+  - x: 2
+    y: 4
+    tileKind: 1
+  - x: 1
+    y: 4
+    tileKind: 1
   dots:
   - {fileID: 670214674110093737, guid: ff62da0aa5bb1aa4a8fc8bbed46ee864, type: 3}
   - {fileID: 2824226696133820001, guid: 519d6660245936a4abb9818635ce2802, type: 3}
@@ -247,6 +320,9 @@ MonoBehaviour:
   - {fileID: 2066056533679741749, guid: 4fde419a70c71c5429738ff2810359a0, type: 3}
   - {fileID: 8442911137992052282, guid: ba831c9c7807d57419ba93dda233b18b, type: 3}
   - {fileID: 8807725743727923627, guid: b10cb002f3008e74885d0531d2c4c9d9, type: 3}
+  destroyEffect: {fileID: 5116859777143567343, guid: 650259998c62464429fe24d94b5e8529,
+    type: 3}
+  currentDot: {fileID: 0}
 --- !u!4 &1068790191
 Transform:
   m_ObjectHideFlags: 0

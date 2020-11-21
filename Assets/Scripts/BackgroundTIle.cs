@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class BackgroundTIle : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
+    public int healthpoints;
+    private SpriteRenderer sprite;
+
+    private void Start()
     {
-        Initialize();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(healthpoints <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
-    void Initialize()
+    public void TakeDamage(int damage)
     {
-        
+        healthpoints -= damage;
+        MakeLighter();
+    }
+
+    private void MakeLighter()
+    {
+        Color color = sprite.color;
+        float newAlpha = color.a * 0.5f;
+        sprite.color = new Color(color.r, color.g, color.b, newAlpha);
     }
 }

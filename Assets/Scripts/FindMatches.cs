@@ -48,7 +48,7 @@ public class FindMatches : MonoBehaviour
         {
             currentMatches.Union(GetColumnPieces(dot2.column));
         }
-        if (dot3.isColorBomb)
+        if (dot3.isColumnBomb)
         {
             currentMatches.Union(GetColumnPieces(dot3.column));
         }
@@ -174,8 +174,13 @@ public class FindMatches : MonoBehaviour
         {
             if(board.allDots[column, i]!= null)
             {
+                Dot dot= board.allDots[column,i].GetComponent<Dot>();
+                if(dot.isRowBomb)
+                {
+                    dots.Union(GetRowPieces(i).ToList());
+                }
                 dots.Add(board.allDots[column, i]);
-                board.allDots[column, i].GetComponent<Dot>().isMatched = true;
+                dot.isMatched = true;
             }
         }
 
@@ -189,8 +194,13 @@ public class FindMatches : MonoBehaviour
         {
             if (board.allDots[i, row] != null)
             {
+                Dot dot= board.allDots[i,row].GetComponent<Dot>();
+                if(dot.isColumnBomb)
+                {
+                    dots.Union(GetColumnPieces(i).ToList());
+                }
                 dots.Add(board.allDots[i, row]);
-                board.allDots[i, row].GetComponent<Dot>().isMatched = true;
+                dot.isMatched = true;
             }
         }
 

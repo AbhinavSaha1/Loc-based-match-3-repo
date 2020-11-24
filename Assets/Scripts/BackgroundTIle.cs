@@ -6,9 +6,10 @@ public class BackgroundTIle : MonoBehaviour
 {
     public int healthpoints;
     private SpriteRenderer sprite;
-
+    private GoalManager goalManager;
     private void Start()
     {
+        goalManager = FindObjectOfType<GoalManager>();
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -16,6 +17,11 @@ public class BackgroundTIle : MonoBehaviour
     {
         if(healthpoints <= 0)
         {
+            if(goalManager!= null)
+            {
+                goalManager.CompareGoals(this.gameObject.tag);
+                goalManager.UpdateGoals();
+            }
             Destroy(this.gameObject);
         }
     }

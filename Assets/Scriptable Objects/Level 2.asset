@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50dfaaa89c80f343af4aa7d94dcdbda, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  width: 6
+  height: 8
+  boardLayout: []
+  dots:
+  - {fileID: 670214674110093737, guid: ff62da0aa5bb1aa4a8fc8bbed46ee864, type: 3}
+  - {fileID: 2824226696133820001, guid: 519d6660245936a4abb9818635ce2802, type: 3}
+  - {fileID: 4241251712457251390, guid: 4ae0c790f2174ec4398ff397046e16ba, type: 3}
+  - {fileID: 3691738391245756949, guid: d9386782ff93acf4aa400afa52527764, type: 3}
+  - {fileID: 6475574443979278013, guid: 26a00e0e7ece37b43a6aedb52745cee9, type: 3}
+  - {fileID: 2066056533679741749, guid: 4fde419a70c71c5429738ff2810359a0, type: 3}
+  - {fileID: 8442911137992052282, guid: ba831c9c7807d57419ba93dda233b18b, type: 3}
+  - {fileID: 8807725743727923627, guid: b10cb002f3008e74885d0531d2c4c9d9, type: 3}
+  scoreGoals: e8030000dc050000b80b0000
+  endGameRequirements:
+    gameType: 0
+    counterValue: 50
+  levelGoals:
+  - numberNeeded: 5
+    numberCollected: 0
+    goalSprite: {fileID: 21300000, guid: 23b8640f4ea5ea74592b0cfa4ed0d2e4, type: 3}
+    matchValue: Pumpkin
+  - numberNeeded: 5
+    numberCollected: 0
+    goalSprite: {fileID: 21300000, guid: 5a9654dd05335ba4baeead7374856d90, type: 3}
+    matchValue: Arrow

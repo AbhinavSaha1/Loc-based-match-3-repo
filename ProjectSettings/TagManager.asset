@@ -12,6 +12,8 @@ TagManager:
   - Sickle
   - Witch hat
   - Wolf
+  - Color
+  - Breakable
   layers:
   - Default
   - TransparentFX

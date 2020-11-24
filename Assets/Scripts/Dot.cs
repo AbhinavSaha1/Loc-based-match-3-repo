@@ -15,6 +15,7 @@ public class Dot : MonoBehaviour
 
     private FindMatches findMatches;
     private Board board;
+    private EndGameManager endGameManager;
     public GameObject otherDot;
     private Vector2 firstTouchPosition;
     private Vector2 finalTouchPosition;
@@ -38,6 +39,7 @@ public class Dot : MonoBehaviour
         isRowBomb = false;
         board = FindObjectOfType<Board>();
         findMatches = FindObjectOfType<FindMatches>();
+        endGameManager = FindObjectOfType<EndGameManager>();
         /*targetX = (int)transform.position.x;
         targetY = (int)transform.position.y;
         column = targetX;
@@ -129,6 +131,13 @@ public class Dot : MonoBehaviour
             }
             else
             {
+                if(endGameManager!= null)
+                {
+                    if(endGameManager.requirements.gameType== GameType.moves)
+                    {
+                        endGameManager.DecreaseCounterValue();
+                    }
+                }    
                 board.DestroyMatches();
             }
         }
@@ -296,5 +305,6 @@ public class Dot : MonoBehaviour
         isColorBomb = true;
         GameObject color = Instantiate(colorBomb, transform.position, Quaternion.identity);
         color.transform.parent = this.transform;
+        this.gameObject.tag= "Color";
     }
 }

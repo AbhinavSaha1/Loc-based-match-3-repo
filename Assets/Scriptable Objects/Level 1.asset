@@ -12,21 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50dfaaa89c80f343af4aa7d94dcdbda, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  width: 5
-  height: 5
-  boardLayout: []
+  width: 6
+  height: 7
+  boardLayout:
+  - x: 0
+    y: 0
+    tileKind: 1
+  - x: 0
+    y: 6
+    tileKind: 1
+  - x: 5
+    y: 0
+    tileKind: 1
+  - x: 5
+    y: 6
+    tileKind: 1
   dots:
   - {fileID: 670214674110093737, guid: ff62da0aa5bb1aa4a8fc8bbed46ee864, type: 3}
   - {fileID: 2824226696133820001, guid: 519d6660245936a4abb9818635ce2802, type: 3}
   - {fileID: 4241251712457251390, guid: 4ae0c790f2174ec4398ff397046e16ba, type: 3}
   - {fileID: 3691738391245756949, guid: d9386782ff93acf4aa400afa52527764, type: 3}
   - {fileID: 6475574443979278013, guid: 26a00e0e7ece37b43a6aedb52745cee9, type: 3}
-  scoreGoals: 640000009001000058020000
+  scoreGoals: c800000090010000bc020000
   endGameRequirements:
-    gameType: 1
-    counterValue: 300
+    gameType: 0
+    counterValue: 15
   levelGoals:
   - numberNeeded: 10
-    numberCollected: 9
+    numberCollected: 0
     goalSprite: {fileID: 21300000, guid: 7d282d58e7dad9345b31b6d37a77c119, type: 3}
     matchValue: Candle

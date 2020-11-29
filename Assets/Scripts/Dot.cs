@@ -17,8 +17,8 @@ public class Dot : MonoBehaviour
     private Board board;
     private EndGameManager endGameManager;
     public GameObject otherDot;
-    private Vector2 firstTouchPosition;
-    private Vector2 finalTouchPosition;
+    private Vector2 firstTouchPosition= Vector2.zero;
+    private Vector2 finalTouchPosition= Vector2.zero;
     private Vector2 tempPosition;
     
     [Header("Swipe stuff")]
@@ -78,8 +78,9 @@ public class Dot : MonoBehaviour
             if(board.allDots[column,row] != this.gameObject)
             {
                 board.allDots[column, row] = this.gameObject;
+                findMatches.FindAllMatches();
             }
-            findMatches.FindAllMatches();
+           
         }
         else
         {
@@ -93,8 +94,9 @@ public class Dot : MonoBehaviour
             if (board.allDots[column, row] != this.gameObject)
             {
                 board.allDots[column, row] = this.gameObject;
+                findMatches.FindAllMatches();
             }
-            findMatches.FindAllMatches();
+           
         }
         else
         {
@@ -290,21 +292,30 @@ public class Dot : MonoBehaviour
 
     public void MakeRowBomb()
     {
-        isRowBomb = true;
-        GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
-        arrow.transform.parent = this.transform;
+        if(!isColorBomb && !isColorBomb)
+        {
+            isRowBomb = true;
+            GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
     }
     public void MakeColumnBomb()
     {
-        isColumnBomb = true;
-        GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
-        arrow.transform.parent = this.transform;
+        if(!isRowBomb && !isColorBomb)
+        {
+            isColumnBomb = true;
+            GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
     }
     public void MakeColorBomb()
     {
-        isColorBomb = true;
-        GameObject color = Instantiate(colorBomb, transform.position, Quaternion.identity);
-        color.transform.parent = this.transform;
-        this.gameObject.tag= "Color";
+        if(!isRowBomb && !isColumnBomb)
+        {
+            isColorBomb = true;
+            GameObject color = Instantiate(colorBomb, transform.position, Quaternion.identity);
+            color.transform.parent = this.transform;
+            this.gameObject.tag = "Color";
+        }  
     }
 }

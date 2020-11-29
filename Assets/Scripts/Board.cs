@@ -25,6 +25,12 @@ public class TileType
     public int y;
     public TileKind tileKind;
 }
+[System.Serializable]
+public class MatchType
+{
+    public int type;
+    public string color;
+}
 
 public class Board : MonoBehaviour
 {
@@ -47,6 +53,9 @@ public class Board : MonoBehaviour
     public GameObject[] dots;
     public GameObject destroyEffect;
     public GameObject[,] allDots;
+
+    [Header("Match stuff")]
+    public MatchType matchType;
     public Dot currentDot;
     private FindMatches findMatches;
     public int basePieceValue= 20;
@@ -60,6 +69,10 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
+        if(PlayerPrefs.HasKey("Current level"))
+        {
+            level = PlayerPrefs.GetInt("Current level");
+        }
         if(world!= null)
         {
             if(world.levels[level]!= null)
@@ -71,6 +84,7 @@ public class Board : MonoBehaviour
                     dots = world.levels[level].dots;
                     scoreGoals = world.levels[level].scoreGoals;
                     boardLayout = world.levels[level].boardLayout;
+                    
                 }
                 
             }
@@ -198,49 +212,161 @@ public class Board : MonoBehaviour
         return false;
     }
 
-    private void CheckToMakeBombs()
+    private MatchType ColumnOrRow()
     {
-        if (findMatches.currentMatches.Count == 4 || findMatches.currentMatches.Count == 7)
+        List<GameObject> matchCopy = findMatches.currentMatches as List<GameObject>;
+
+        matchType.type = 0;
+        matchType.color = "";
+
+        //Cycle through all of match Copy and decide if a bomb needs to be made
+        for (int i = 0; i < matchCopy.Count; i++)
         {
-            findMatches.CheckBombs();
-        }
-        if (findMatches.currentMatches.Count == 5 || findMatches.currentMatches.Count == 8)
-        {
-            if(currentDot!= null)
+            //Store this dot
+            Dot thisDot = matchCopy[i].GetComponent<Dot>();;
+            string color = matchCopy[i].tag;
+            int column = thisDot.column;
+            int row = thisDot.row;
+            int columnMatch = 0;
+            int rowMatch = 0;
+            //Cycle through the rest of the pieces and compare
+            for (int j = 0; j < matchCopy.Count; j++)
             {
-                if(currentDot.isMatched)
+                //Store the next dot
+                Dot nextDot = matchCopy[j].GetComponent<Dot>();
+                if (nextDot == thisDot)
                 {
-                    if(!currentDot.isColorBomb)
-                    {
-                        currentDot.isMatched = false;
-                        currentDot.MakeColorBomb();
-                    }
-                }    
-            }
-            else if(currentDot.otherDot!= null)
-            {
-                Dot otherDot = currentDot.otherDot.GetComponent<Dot>();
-                if (otherDot.isMatched)
+                    continue;
+                }
+                if (nextDot.column == thisDot.column && nextDot.tag == color)
                 {
-                    if (!otherDot.isColorBomb)
-                    {
-                        otherDot.isMatched = false;
-                        otherDot.MakeColorBomb();
-                    }
+                    columnMatch++;
+                }
+                if (nextDot.row == thisDot.row && nextDot.tag == color)
+                {
+                    rowMatch++;
                 }
             }
+            // Return 3 if column or row match
+            //Return 2 if adjacent
+            //Return 1 if it's a color bomb
+            if (columnMatch == 4 || rowMatch == 4)
+            {
+                matchType.type = 1;
+                matchType.color = color;
+                return matchType;
+            }
+            else if (columnMatch == 2 && rowMatch == 2)
+            {
+                matchType.type = 2;
+                matchType.color = color;
+                return matchType;
+            }
+            else if (columnMatch == 3 || rowMatch == 3)
+            {
+                matchType.type = 3;
+                matchType.color = color;
+                return matchType;
+            }
         }
+
+        matchType.type = 0;
+        matchType.color = "";
+        return matchType;
+    }
+
+    private void CheckToMakeBombs()
+    {
+        if (findMatches.currentMatches.Count > 3)
+        {
+            //What type of match?
+            MatchType typeOfMatch = ColumnOrRow();
+            if (typeOfMatch.type == 1)
+            {
+                //Make a color bomb
+                if (currentDot != null && currentDot.isMatched && currentDot.tag == typeOfMatch.color)
+                { 
+                     currentDot.isMatched = false;
+                     currentDot.MakeColorBomb();
+                }
+                else  
+                {
+                    if (currentDot.otherDot != null)
+                    {
+                        Dot otherDot = currentDot.otherDot.GetComponent<Dot>();
+                        if (otherDot.isMatched && otherDot.tag== typeOfMatch.color)
+                        {
+                           otherDot.isMatched = false;
+                           otherDot.MakeColorBomb();
+                        }
+                    }      
+                }
+            }
+
+          /* else if (typeOfMatch.type== 2 && currentDot.isMatched && currentDot.tag== typeOfMatch.color)
+            {
+                if (currentDot != null)
+                {
+                   currentDot.isMatched = false;
+                   currentDot.MakeColorBomb();
+                }
+                else
+                {
+                    if (currentDot.otherDot != null)
+                    {
+                        Dot otherDot = currentDot.otherDot.GetComponent<Dot>();
+                        if (otherDot.isMatched && otherDot.tag== typeOfMatch.color)
+                        {
+                           otherDot.isMatched = false;
+                           otherDot.MakeColorBomb();
+                        }
+                    }
+                }
+            }*/
+            else if (typeOfMatch.type== 3)
+            {
+                findMatches.CheckBombs(typeOfMatch);
+            }
+        }
+        /* 
+          if (findMatches.currentMatches.Count == 4 || findMatches.currentMatches.Count == 7)
+          {
+              findMatches.CheckBombs();
+          }
+          if (findMatches.currentMatches.Count == 5 || findMatches.currentMatches.Count == 8)
+          {
+              if(currentDot!= null)
+              {
+                  if(currentDot.isMatched)
+                  {
+                      if(!currentDot.isColorBomb)
+                      {
+                          currentDot.isMatched = false;
+                          currentDot.MakeColorBomb();
+                      }
+                  }    
+              }
+              else if(currentDot.otherDot!= null)
+              {
+                  Dot otherDot = currentDot.otherDot.GetComponent<Dot>();
+                  if (otherDot.isMatched)
+                  {
+                      if (!otherDot.isColorBomb)
+                      {
+                          otherDot.isMatched = false;
+                          otherDot.MakeColorBomb();
+                      }
+                  }
+              }
+          }
+         */
     }    
 
     private void DestroymatchesAt(int column, int row)
     {
         if(allDots[column, row].GetComponent<Dot>().isMatched)
         {
-            if(findMatches.currentMatches.Count >= 4)
-            {
-                CheckToMakeBombs();
-            }
-            
+          
             if(breakableTile[column,row]!= null)
             {
                 breakableTile[column, row].TakeDamage(1);
@@ -268,6 +394,12 @@ public class Board : MonoBehaviour
     }
     public void DestroyMatches()
     {
+        if (findMatches.currentMatches.Count >= 4)
+        {
+            CheckToMakeBombs();
+        }
+        findMatches.currentMatches.Clear();
+
         for (int i=0; i<width; i++)
         {
             for(int j=0; j< height; j++)
@@ -278,7 +410,6 @@ public class Board : MonoBehaviour
                 }
             }
         }
-        findMatches.currentMatches.Clear();
         StartCoroutine(DecreaseRowCo2());
     }
     private IEnumerator DecreaseRowCo2()
@@ -356,6 +487,7 @@ public class Board : MonoBehaviour
 
     private bool MatchesOnBoard()
     {
+        findMatches.FindAllMatches();
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -374,6 +506,7 @@ public class Board : MonoBehaviour
 
     private IEnumerator FillBoardCo()
     {
+        yield return new WaitForSeconds(refillDelay); 
         RefillBoard();
         yield return new WaitForSeconds(refillDelay);
 
@@ -381,9 +514,9 @@ public class Board : MonoBehaviour
         {
             streakValue++;
             DestroyMatches();
-            yield return new WaitForSeconds(2*refillDelay);
+            yield break;
+            //yield return new WaitForSeconds(2*refillDelay);
         }
-        findMatches.currentMatches.Clear();
         currentDot = null;
         yield return new WaitForSeconds(refillDelay);
         if(IsDeadLocked())
@@ -397,9 +530,13 @@ public class Board : MonoBehaviour
 
     private void SwitchPieces(int column,int row,Vector2 direction)
     {
-        GameObject holder = allDots[column + (int)direction.x, row + (int)direction.y] as GameObject;
-        allDots[column + (int)direction.x, row + (int)direction.y] = allDots[column, row];
-        allDots[column, row] = holder;
+        if(allDots[column+ (int)direction.x, row + (int)direction.y]!= null)
+        {
+            GameObject holder = allDots[column + (int)direction.x, row + (int)direction.y] as GameObject;
+            allDots[column + (int)direction.x, row + (int)direction.y] = allDots[column, row];
+            allDots[column, row] = holder;
+        }
+        
     }
 
     private bool CheckForMatches()
@@ -408,29 +545,33 @@ public class Board : MonoBehaviour
         {
             for(int j=0; j< height; j++)
             {
-                if(i< width-2)
+                if(allDots[i,j]!= null)
                 {
-                    if (allDots[i + 1, j] != null && allDots[i + 2, j] != null)
+                    if (i < width - 2)
                     {
-                        if (allDots[i + 1, j].tag == allDots[i, j].tag
-                            && allDots[i + 2, j].tag == allDots[i, j].tag)
+                        if (allDots[i + 1, j] != null && allDots[i + 2, j] != null)
                         {
-                            return true;
+                            if (allDots[i + 1, j].tag == allDots[i, j].tag
+                                && allDots[i + 2, j].tag == allDots[i, j].tag)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    if (j < height - 2)
+                    {
+                        if (allDots[i, j + 1] != null && allDots[i, j + 2] != null)
+                        {
+                            if (allDots[i, j + 1].tag == allDots[i, j].tag
+                                && allDots[i, j + 2].tag == allDots[i, j].tag)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
                
-                if(j < height-2)
-                {
-                    if (allDots[i, j + 1] != null && allDots[i, j + 2] != null)
-                    {
-                        if (allDots[i, j + 1].tag == allDots[i, j].tag
-                            && allDots[i, j + 2].tag == allDots[i, j].tag)
-                        {
-                            return true;
-                        }
-                    }
-                } 
             }
         }
         return false;

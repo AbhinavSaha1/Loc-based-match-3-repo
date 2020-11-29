@@ -21,4 +21,5 @@ public class Level : ScriptableObject
     [Header("End game requirements")]
     public EndGameRequirements endGameRequirements;
     public BlankGoals[] levelGoals;
+
 }

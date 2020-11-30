@@ -7,9 +7,10 @@ public class BackToMainMenu : MonoBehaviour
 {
    public void OK()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(0);
 
         SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+        //Loads the state
         wrapper.Load();
     }
 }

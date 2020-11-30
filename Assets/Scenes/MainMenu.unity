@@ -1367,7 +1367,7 @@ MonoBehaviour:
   buttonWhenActive: {fileID: 492777304}
   levelText: {fileID: 1264513456}
   level: 2
-  sceneToLoad: 2
+  sceneToLoad: 1
 --- !u!114 &492777306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,7 +1613,7 @@ MonoBehaviour:
   buttonWhenActive: {fileID: 533776370}
   levelText: {fileID: 184914248}
   level: 3
-  sceneToLoad: 2
+  sceneToLoad: 1
 --- !u!114 &533776372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,7 +2098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99506b712885fff44ae44be7705bd629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
+  isActive: 1
   activeSprite: {fileID: 21300000, guid: 79a368c150220485cae1485c8eee5111, type: 3}
   lockedSprite: {fileID: 21300000, guid: fea102a46fad246078aade7aa43f217d, type: 3}
   stepsNeededToUnlock: {fileID: 1043258831}
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   buttonWhenActive: {fileID: 978256006}
   levelText: {fileID: 132877246}
   level: 1
-  sceneToLoad: 2
+  sceneToLoad: 1
 --- !u!114 &978256008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2653,7 +2653,7 @@ PrefabInstance:
     - target: {fileID: 6097636001237875526, guid: b420e153f9ef0854b8b9a90cf03bd4f7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.9000244
+      value: -5.8999023
       objectReference: {fileID: 0}
     - target: {fileID: 6097636001237875526, guid: b420e153f9ef0854b8b9a90cf03bd4f7,
         type: 3}

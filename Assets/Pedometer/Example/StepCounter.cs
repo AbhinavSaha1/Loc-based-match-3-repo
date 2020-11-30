@@ -13,6 +13,7 @@ namespace PedometerU.Tests {
     public class StepCounter : MonoBehaviour, ISaveable
     {
         public int currentSteps;
+        public int stepDifference;
         public Text stepText, distanceText;
         private Pedometer pedometer;
         public LevelButton levelButton1;
@@ -26,40 +27,45 @@ namespace PedometerU.Tests {
         {
             SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
             wrapper.Load();
+
         }
 
         private void Start () {
             // Create a new pedometer
             pedometer = new Pedometer(OnStep);
             // Reset UI
-            OnStep(0, 0);
+           
+            OnStep(currentSteps, 0);
+          
 
         }
         private void Update()
         {
-            //OnStep(currentSteps, 0);
+            //OnStep(0, 0);
+           
         }
 
         private void OnStep (int steps, double distance)
         {
             // Display the values // Distance in feet
-            //currentSteps = steps;
-            stepText.text = " Steps :" + steps.ToString();
-            UnlockLevels(steps);
+            stepDifference = currentSteps - steps;
+            currentSteps =((currentSteps+ steps)- stepDifference)/2;
+            stepText.text = " Steps: " + currentSteps.ToString();
+            UnlockLevels();
             distanceText.text = (distance * 3.28084).ToString("F2") + " ft";
         }
 
-        private void UnlockLevels(int steps)
+        private void UnlockLevels()
         {
-            if (steps > stepsToUnlockLvl1)
+            if (currentSteps > stepsToUnlockLvl1)
             {
                 levelButton1.isActive = true;
             }
-            if (steps > stepsToUnlockLvl2)
+            if (currentSteps > stepsToUnlockLvl2)
             {
                 levelButton2.isActive = true;
             }
-            if (steps > stepsToUnlockLvl3)
+            if (currentSteps > stepsToUnlockLvl3)
             {
                 levelButton3.isActive = true;
             }
